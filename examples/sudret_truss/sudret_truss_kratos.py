@@ -45,7 +45,7 @@ if not loaded:
     E_high = 2.1e12
     A_Ver_high = 1e-3
     A_Hor_high = 1e-3
-    F_high = 7.5e3
+    F_high = -7.5e3
 
     E_Hor_rv = np.random.uniform(E_low,E_high, size = n_samples).reshape(n_samples,1)
     E_Ver_rv = np.random.uniform(E_low,E_high, size = n_samples).reshape(n_samples,1)
@@ -108,7 +108,7 @@ def objective(trial):
     n_layers = trial.suggest_int('n_layers', 1, 20)
     n_units  = trial.suggest_int('n_units', 5, 500)
     init     =  trial.suggest_float("init", 10, 1000.0)
-    lr       =  trial.suggest_float("lr", 0.0001, 100.0)
+    lr       =  trial.suggest_float("lr", 0.00001, 0.01)
 
     # Creation of network
     net = Net3(n_feature = feature_size, n_hidden= n_units, n_output = 39, depth = n_layers, init = init )
@@ -118,8 +118,10 @@ def objective(trial):
 
 #Create a study object and optimize the objective function to find the best hyperparameters.
 study = optuna.create_study(direction='minimize')
-study.optimize(objective, n_trials=50)
+study.optimize(objective, n_trials=5)
 
+print("#### #### #### Hyper parameter tuning completed #### #### ####")
+print("Best parameters found are")
 print(study.best_params["n_units"], study.best_params["n_layers"], study.best_params["init"], study.best_params["lr"])
 
 net_final = Net3(n_feature = feature_size, n_hidden= study.best_params["n_units"], n_output = 39, 

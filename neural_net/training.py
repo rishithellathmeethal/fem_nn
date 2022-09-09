@@ -58,12 +58,12 @@ def train_with_loader(net, dataloader_train, dataloader_test, l_rate , epoch = 2
 
     print("training ends")
     print("Total time for training is",end-begin)
-    if plot == True:
-        plt.figure()
-        plt.plot(epoch_plot, train_plot)
-        plt.plot(epoch_plot, test_plot)
-        timestr = time.strftime("%Y%m%d-%H%M%S")
-        plt.savefig('output/'+timestr+".png")
-        plt.show()
+    # if plot == True:
+    #     plt.figure()
+    #     plt.plot(epoch_plot, train_plot)
+    #     plt.plot(epoch_plot, test_plot)
+    #     timestr = time.strftime("%Y%m%d-%H%M%S")
+    #     plt.savefig('output/'+timestr+".png")
+    #     plt.show()
 
     return sum_loss_train/len(dataloader_train), sum_loss_test/len(dataloader_test) 
