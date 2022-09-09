@@ -14,10 +14,10 @@
         "analysis_type"                      : "linear",
         "model_import_settings"              : {
             "input_type"     : "mdpa",
-            "input_filename" : "parameters/sudret_truss"
+            "input_filename" : "sim_parameters/sudret_truss"
         },
         "material_import_settings"           : {
-            "materials_filename" : "parameters/StructuralMaterials.json"
+            "materials_filename" : "sim_parameters/StructuralMaterials.json"
         },
         "time_stepping"                      : {
             "time_step" : 1.1

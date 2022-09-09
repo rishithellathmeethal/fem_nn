@@ -1,0 +1,5 @@
+numpy=1.23.2
+matplotlib=3.5.3
+torch=1.12.1
+optuna=3.0.1
+sklearn=1.1.2

@@ -3,7 +3,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import sys
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-from neural_net.layer_init import layer_initialisation
 
 class Net3(torch.nn.Module):
     """
@@ -25,7 +24,7 @@ class Net3(torch.nn.Module):
 
         for i in range(1, depth):
             self.layers['hidden_'+str(i)] = torch.nn.Linear(n_hidden,n_hidden).float().to(device)
-            layer_initialisation(self.layers['hidden_'+str(i)], weight_init = 'xavier', bias_init = 'ones')
+            self.layer_initialisation(self.layers['hidden_'+str(i)], weight_init = 'xavier', bias_init = 'ones')
     
         self.predict = torch.nn.Linear(n_hidden, n_output).float().to(device)
         nn.init.xavier_uniform_(self.predict.weight,gain=1)
@@ -40,3 +39,8 @@ class Net3(torch.nn.Module):
             x = self.dropout(x)
         x = self.predict(x)           
         return x
+
+    def layer_initialisation(self, incoming_layer, weight_init = 'xavier', bias_init = 'ones'):
+        if weight_init == 'xavier':
+            nn.init.xavier_uniform_(incoming_layer.weight,gain=1)
+            nn.init.ones_(incoming_layer.bias) 

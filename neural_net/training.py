@@ -6,15 +6,17 @@ from decimal import Decimal
 torch.manual_seed(1)
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-from loss_functions import Linear_residual_loss
+import sys
+sys.path.append("../")
+from neural_net.loss_functions import Linear_residual_loss
 
-def train_with_loader(net, dataloader_train, dataloader_test, l_rate , epoch = 200000, loss_f = None, plot = False):
+def train_with_loader(net, dataloader_train, dataloader_test, l_rate , epoch = 20000, loss_f = None, plot = False):
     try:
         begin = time.time()
         print("training begins")
         optimizer = torch.optim.Adam(net.parameters(), lr= l_rate)
 
-        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size = 3000, gamma = 0.95)
+        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size = 300, gamma = 0.95)
         linear_res    = Linear_residual_loss.apply
         
         epoch_plot = []

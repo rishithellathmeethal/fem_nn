@@ -8,7 +8,7 @@ from KratosMultiphysics.StructuralMechanicsApplication.structural_mechanics_stat
 import numpy as np
 from scipy import io
 import KratosMultiphysics.scipy_conversion_tools
-
+import os
 
 """
 For user-scripting it is intended that a new class is derived
@@ -60,6 +60,14 @@ class StaticMechanicalSolverWithSystemMatrixAccess(StaticMechanicalSolver):
 
         k_matrix = io.mmread("s_mat_fin").A
         f_vector = io.mmread("s_vec_fin")
+
+        os.remove("s_mat")
+        os.remove("s_vec")
+        os.remove("s_mat_fin")
+        os.remove("s_vec_fin")
+
+        print("File has been deleted")
+
         return k_matrix, f_vector
 
 
